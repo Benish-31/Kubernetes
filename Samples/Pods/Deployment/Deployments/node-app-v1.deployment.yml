@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  selector: 
+    matchLabels: 
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers: 
+      - image: node-app:1.0
+        name: node-app
+        resources:
+
+# k apply -f node-app-v1.deployment.yml
+# k get all
+# k apply -f node-app-v2.deployment.yml # v2 will be the one to run replacing the first pod
+# k get all
+# k apply -f node-app-v3.deployment.yml # v3 will be the one to run replacing the second pod
+# k get all

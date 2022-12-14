@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  
+  annotations: # --save-config causes the resource's configuration settings to be saved in the annotations
+    kubectl.kubernetes.io/
+    last-applied-configuration:
+    {"apiVersion":"v1","kind":"Pod", # Example of saved configuration
+     "metadata":{
+      "name": "my-nginx" # Having this allows in-place changes to be made to a Pod in the future using kubectl apply
+      ...
+     }
+    }
+  ...
+    # In-place/non-disruptive changes can also be made to a Pod using kubectl edit or kubectl patch

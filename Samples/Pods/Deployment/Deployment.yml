@@ -1,0 +1,10 @@
+apiVersion: apps/v1 # Kubernetes API version and resource type(Deployment)
+kind: Deployment
+metadata: # Metadata about the Deployment
+spec:
+  selector: # Selector Pod template label(s)
+  template: # Template used to create the Pods
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx:alpine # Containers that will run in the Pod

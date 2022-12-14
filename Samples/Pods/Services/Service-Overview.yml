@@ -1,0 +1,9 @@
+apiVersion: v1 # Kubernetes API version and resource type(Service)
+kind: Service
+metadata: # Metadata about the Service
+spec:
+  type: # Type of service(ClusterIP, NodePort, LoadBalancer) - defaults to ClusterIP
+
+  selector:
+
+  ports:

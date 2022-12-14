@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+
+...
+
+spec: 
+  containers: 
+  - name: liveness
+    image: k8s.gcr.io/busybox
+
+    args:
+    - /bin/sh
+    - -c  # Define args for container
+    - touch /tmp/healthy; sleep 30;
+      rm -rf /tmp/healthy; sleep 600
+
+    livenessProbe:  # Define liveness probe
+      exec:
+        command:
+        - cat
+        - /tmp/healthy  # Define action/command to execute
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+# Readiness Probe:
+# When should a container start receiving traffic?
+
+# Liveness Probe:
+# When should a container restart

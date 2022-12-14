@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # Kubernetes API version and resource type(Deployment)
+kind: Deployment
+metadata:
+  name: frontend
+  labels: # Metadata about the Deployment
+    app: my-nginx
+    tier: frontend
+spec:
+  selector: 
+    matchLabels:  #  The selector is used to "select" the template to use (based on labels)
+      tier: frontend
+  template: 
+    metadata: 
+      labels: # Template to use to create the Pod/Containers (note that the selector matches the label)
+        tier: frontend
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx:alpine 

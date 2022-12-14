@@ -1,0 +1,19 @@
+apiVersion: v1
+
+kind: Deployment
+
+...
+
+template:
+  spec: 
+    containers: 
+    - name: my-nginx
+      image: nginx:alpine
+      livenessProbe:  # Define liveness probe(readiness probes can also be defined)
+        httpGet:
+          path:  /index.html  # Check /index.html on port 80
+          port: 80  
+        initialDelaySeconds: 15 # wait 15 seconds 
+        timeoutSeconds: 2 # Timeout after 2 seconds
+        periodSeconds: 5  # Check every 5 seconds
+        failureThreshold: 1 # Allow 1 failure before Pod

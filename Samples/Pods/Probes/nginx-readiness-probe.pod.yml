@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: my-nginx
+  labels: 
+    app: nginx
+    rel: stable
+spec: 
+  containers: 
+  - name: my-nginx
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    livenessProbe:
+      httpGet:
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 15
+      timeoutSeconds: 2 # Default is 1
+      periodSeconds: 5 #  Default is 10
+      failureThreshold: 1 # Default is 3
+    readinessProbe:
+      httpGet:
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 3
+      periodSeconds: 5 #  Default is 10
+      failureThreshold: 1 # Default is 3
+
+# kubectl exec pod-name -c container-name -it /bin/sh
+
+# playing with index.html
+# k apply -f nginx-readiness-probe.pod.yml
+# k get pods
+# k describe pod my-nginx
+# k exec my-nginx -it sh
+# # ls
+# # cd usr
+# # ls
+# # cd share/nginx/html
+# # ls
+# # rm -rf index.html
+# # ls
+# # exit
+# k describe pod my-nginx
+# k exec my-nginx -it sh
+# # ls
+# # cd share/nginx/html
+# # ls
+# # exit
+

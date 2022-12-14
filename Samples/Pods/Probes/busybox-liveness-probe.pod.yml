@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: my-nginx
+  labels: 
+    app: nginx
+    rel: stable
+spec: 
+  containers:
+  - name: liveness
+    image: k8s.gcr.io/busybox
+    resources:
+      limits:
+        memory: "64Mi"  #64 MB
+        cpu: "50m"  #50 millicpu (.05 cpu or 5% of the cpu)
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf  /tmp/healthy; sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+
+# PLAYING WITH THE FILE
+# k apply -f busybox-liveness-probe.pod.yml
+# k get pods
+# k describe pod liveness-exec
+# k get pods
+# k delete pod liveness-exec
